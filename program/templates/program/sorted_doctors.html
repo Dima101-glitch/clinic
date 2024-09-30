@@ -1,0 +1,57 @@
+{% extends 'program/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Sorted_doctors
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'program/css/sorted_doctors.css' %}">
+{% endblock %}
+
+{% block body %}
+{% if sorted_doctors.count > 0 %}
+    <ul class="all_doctors_elements">
+        {% for i in sorted_doctors.results %}
+            <li class="one_doctor_element">
+                <a href="http://127.0.0.1:8000/doctors/{{ i.id }}/">
+                    <h2>Доктор id:{{ i.id }}</h2>
+                    <h3>Ім'я: {{ i.name }}</h3>
+                    <h4>Слаг: {{ i.slug }}</h4>
+                    <h4>Дата народження: {{ i.birth_date }}</h4>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="doctor_buttons">
+        <form class='pages'>
+            <a id="prev-link">&leftarrow;Попередній</a>
+            <a id="next-link">Наступний&rightarrow;</a>
+        </form>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Знайдемо елементи пагінації
+                let prevLink = document.getElementById('prev-link');
+                let nextLink = document.getElementById('next-link');
+        
+                // Отримуємо параметр 'page' з URL
+                const urlParams = new URLSearchParams(window.location.search);
+                let currentPage = parseInt(urlParams.get('page')) || 1;
+        
+                // Визначаємо значення для попередньої та наступної сторінки
+                let prevPage = currentPage > 1 ? currentPage - 1 : 1;
+                let nextPage = currentPage + 1;
+        
+                // Створюємо URL для попередньої та наступної сторінки
+                prevLink.href = `?page=${prevPage}`;
+                nextLink.href = `?page=${nextPage}`;
+            });
+        </script>        
+    </div>
+{% else %}
+    <script>
+        alert("Нісого не знайдено!");
+        window.history.back();
+    </script>
+{% endif %}
+{% endblock %}

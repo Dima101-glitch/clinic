@@ -1,0 +1,56 @@
+{% extends 'program/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Doctor
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'program/css/doctor.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Інформація про доктора</h1>
+    <table>
+        <tr>
+            <th>Ім'я</th>
+            <td>{{ doctor.name }}</td>
+        </tr>
+        <tr>
+            <th>Псевдонім (Slug)</th>
+            <td>{{ doctor.slug }}</td>
+        </tr>
+        <tr>
+            <th>Опис</th>
+            <td>{{ doctor.description }}</td>
+        </tr>
+        <tr>
+            <th>Дата народження</th>
+            <td>{{ doctor.birth_date }}</td>
+        </tr>
+        <tr>
+            <th>Досвід</th>
+            <td>{{ doctor.experience }} років</td>
+        </tr>
+        <tr>
+            <th>Порядковий номер</th>
+            <td>{{ doctor.sort_order }}</td>
+        </tr>
+    </table>
+
+    <div class="directions">
+        <h2>Напрямки</h2>
+        <ul>
+            {% for direction in doctor.directions %}
+                <li>
+                    <span>ID:</span> {{ direction.id }}<br>
+                    <span>Ім'я:</span> {{ direction.name }}<br>
+                    <span>Псевдонім (Slug):</span> {{ direction.slug }}<br>
+                    <span>Порядковий номер:</span> {{ direction.sort_order }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

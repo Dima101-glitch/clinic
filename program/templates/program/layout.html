@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'program\css\main.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <div class="main_panel">
+        <b>Клініка</b>
+        <div class="windows">
+            <a href="{% url 'main' %}">Головна</a>
+            <a href="{% url 'dc' %}">Доктори</a>
+            <a href="{% url 'drc' %}">Напрямки</a>
+            <a href="/admin/">Панель адміністратора</a>
+        </div>
+    </div>
+    <div class="container py-3">
+        {% block body %}
+            
+        {% endblock %}
+    </div>
+</body>
+</html>

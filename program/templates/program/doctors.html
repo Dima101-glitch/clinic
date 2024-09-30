@@ -1,0 +1,55 @@
+{% extends 'program/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Doctors
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'program/css/doctors.css' %}">
+{% endblock %}
+
+{% block body %}
+    <form class="sort_panel">
+        <h1>Панель сортування &rightarrow;</h1>
+        <div class="expirience_sort">
+            <input type="text" name="filexp" placeholder="Досвід роботи в роках: " value="">
+            <button name="filexpbutton">Сортувати</button>
+        </div>
+
+        <div class="direction_sort">
+            <input type="text" id="sortInput" placeholder="Ім'я напрямку: ">
+            <button type="button" onclick="sortByDirection()">Сортувати</button>
+            <script>
+                function sortByDirection() {
+                    const inputValue = document.getElementById('sortInput').value;
+                    if (inputValue) {
+                        window.location.href = `/doctors/sort/${encodeURIComponent(inputValue)}/`;
+                    } else {
+                        alert("Будь ласка, введіть ім'я напрямку для сортування.");
+                    }
+                }
+            </script>
+
+        </div>
+    </form>
+
+    <ul class="all_doctors_elements">
+        {% for i in doctors.results %}
+            <li class="one_doctor_element">
+                <a href="http://127.0.0.1:8000/doctors/{{ i.id }}/">
+                    <h2>Доктор id:{{ i.id }}</h2>
+                    <h3>Ім'я: {{ i.name }}</h3>
+                    <h4>Слаг: {{ i.slug }}</h4>
+                    <h4>Дата народження: {{ i.birth_date }}</h4>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="doctor_buttons">
+        <form action="method" class='pages'>
+            <a href="{% if doctors.previous != null%}?page={{doctors.previous}}{% endif %}">&leftarrow;Попередній</a>
+            <a href="{% if doctors.next != null%}?page={{doctors.next}}{% endif %}">Наступний&rightarrow;</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'program/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Doctors
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'program/css/doctors.css' %}">
+{% endblock %}
+
+{% block body %}
+    <ul class="all_doctors_elements">
+        {% for i in directions %}
+            <li class="one_doctor_element">
+                <h2>id напрямку:{{ i.id }}</h2>
+                <h3>Ім'я: {{ i.name }}</h3>
+                <h4>Слаг: {{ i.slug }}</h4>
+                <h4>Номер сортування: {{ i.sort_order }}</h4>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
